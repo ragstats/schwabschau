@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
       - name: "Install Packages"
         run: |
-          install.packages('twitteR')
+          install.packages('rtweet')
           install.packages('dplyr')
           install.packages('lubridate')
           install.packages('remotes')
