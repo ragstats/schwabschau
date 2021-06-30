@@ -42,7 +42,9 @@ if(ts_rows==0){
     print("nothing to tweet")
   
 } else {
-  print(paste0("tweet out", ts_rows, " tweets."))
+  print(paste0("tweet out ", ts_rows, " tweets."))
+  
+  tweet <- possibly(tweet, otherwise = NULL, quiet = F)
   
  ts_schwabs %>% 
   split(1:nrow(.)) %>% 
@@ -52,7 +54,7 @@ if(ts_rows==0){
     
     Sys.sleep(5)
     
-    twitteR::tweet(text = .x$schwabtext, inReplyTo = .x$id, bypassCharLimit = T)
+    tweet(text = .x$schwabtext, inReplyTo = .x$id, bypassCharLimit = T)
     
   })
 }
