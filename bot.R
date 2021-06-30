@@ -14,11 +14,18 @@ access_token <- Sys.getenv("token")
 
 access_secret <- Sys.getenv("secret")
 
+print("authenticate")
+
 setup_twitter_oauth(consumer_key,consumer_secret,
                     access_token,access_secret)
 
+print("get tweets")
+
 ts <- twitteR::searchTwitter("from:tagesschau", n = 100) %>% 
   twListToDF()
+
+
+print("schwabify")
 
 ts_schwabs <- ts %>% 
   filter(created > lubridate::now() - lubridate::dhours(0.9)) %>% 
@@ -27,6 +34,8 @@ ts_schwabs <- ts %>%
   ungroup() %>% 
   mutate(link = stringr::str_extract(text, "http[^[:space:]]*"),
          schwabtext = stringr::str_replace(schwabtext, "hddb[^[:space:]]*", link))
+
+print("tweet it")
 
 ts_schwabs %>% 
   split(1:nrow(.)) %>% 
