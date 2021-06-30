@@ -28,7 +28,7 @@ ts <- twitteR::searchTwitter("from:tagesschau", n = 100) %>%
 print("schwabify")
 
 ts_schwabs <- ts %>% 
-  filter(created > lubridate::now() - lubridate::dhours(0.9)) %>% 
+  filter(created > lubridate::now() - lubridate::dhours(1)) %>% 
   rowwise() %>% 
   mutate(schwabtext = get_schwab(text)) %>% 
   ungroup() %>% 
