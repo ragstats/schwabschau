@@ -31,7 +31,8 @@ ts <- rtweet::search_tweets("from:tagesschau", n = 20, include_rts = F) %>%
   bind_rows(rtweet::search_tweets("from:Schwaebische", n = 20, include_rts = F)) %>% 
   bind_rows(rtweet::search_tweets("from:StN_News", n = 20, include_rts = F)) %>% 
   bind_rows(rtweet::search_tweets("from:RegierungBW", n = 20, include_rts = F)) %>% 
-  bind_rows(rtweet::search_tweets("from:SWRAktuellBW", n = 20, include_rts = F))
+  bind_rows(rtweet::search_tweets("from:SWRAktuellBW", n = 20, include_rts = F)) %>% 
+  distinct(text, .keep_all = T)
 
 print("schwabify")
 
