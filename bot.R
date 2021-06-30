@@ -25,8 +25,13 @@ rtweet::create_token(
 
 print("get tweets")
 
-ts <- rtweet::search_tweets("from:tagesschau", n = 100, include_rts = F)
-
+ts <- rtweet::search_tweets("from:tagesschau", n = 20, include_rts = F) %>% 
+  bind_rows(rtweet::search_tweets("from:StZ_NEWS", n = 20, include_rts = F)) %>% 
+  bind_rows(rtweet::search_tweets("from:SZ", n = 20, include_rts = F)) %>% 
+  bind_rows(rtweet::search_tweets("from:Schwaebische", n = 20, include_rts = F)) %>% 
+  bind_rows(rtweet::search_tweets("from:StN_News", n = 20, include_rts = F)) %>% 
+  bind_rows(rtweet::search_tweets("from:RegierungBW", n = 20, include_rts = F)) %>% 
+  bind_rows(rtweet::search_tweets("from:SWRAktuellBW", n = 20, include_rts = F))
 
 print("schwabify")
 
@@ -37,9 +42,18 @@ ts_schwabs <- ts %>%
   ungroup() %>% 
   mutate(link = stringr::str_extract(text, "http[^[:space:]]*"),
          schwabtext = stringr::str_replace(schwabtext, "hddb[^[:space:]]*", link),
-         schwabtext = paste0(schwabtext, " (@tagesschau)")) 
+         schwabtext = paste0(schwabtext, " (@", screen_name, ")"),
+         schwabtext = str_replace(schwabtext, " inna", ":inna")) 
 
 ts_rows <- nrow(ts_schwabs) 
+
+if(ts_rows>20){
+  ts_schwabs <- ts_schwabs %>% 
+    sample_n(20)
+  
+  ts_rows <- nrow(ts_schwabs) 
+  
+}
 
 if(ts_rows==0){
   
