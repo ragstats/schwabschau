@@ -7,11 +7,8 @@ library(schwabr)
 library(rtweet)
 
 consumer_key <- Sys.getenv("consumer_key")
-
 consumer_secret <- Sys.getenv("consumer_secret")
-
 access_token <- Sys.getenv("token")
-
 access_secret <- Sys.getenv("secret")
 
 print("authenticate")
