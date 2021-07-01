@@ -48,7 +48,7 @@ ts_schwabs <- ts %>%
 
 ts_rows <- nrow(ts_schwabs) 
 
-if(ts_rows>20){
+if(ts_rows>10){
   ts_schwabs <- ts_schwabs %>% 
     sample_n(5)
   
@@ -62,6 +62,8 @@ if(ts_rows==0){
   
 } else {
   print(paste0("tweet out ", ts_rows, " tweets."))
+  
+  # post_tweet(status = ts_schwabs$schwabtext[1], in_reply_to_status_id = ts_schwabs$status_id[1], auto_populate_reply_metadata = T)
   
   
  ts_schwabs %>% 
