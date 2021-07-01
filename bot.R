@@ -50,7 +50,7 @@ ts_rows <- nrow(ts_schwabs)
 
 if(ts_rows>20){
   ts_schwabs <- ts_schwabs %>% 
-    sample_n(20)
+    sample_n(5)
   
   ts_rows <- nrow(ts_schwabs) 
   
