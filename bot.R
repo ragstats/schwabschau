@@ -91,8 +91,6 @@ if(ts_rows==0){
      split(1:nrow(.)) %>% 
      purrr::walk(~{
        
-       print(.x$schwabtext)
-       
        post_tweet(retweet_id = .x$status_id)
        
        Sys.sleep(10)
